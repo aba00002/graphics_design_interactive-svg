@@ -1,0 +1,69 @@
+repo: 'interactive-svg'
+canvasCourse: 'web-dev-3'
+
+inherit:
+  - 'naming-restrict-live'
+  - 'git-2'
+  - 'html'
+  - 'css'
+
+html:
+  - path: 'index.html'
+    outline: false
+    has:
+      - 'svg'
+      - 'svg circle'
+      - 'svg g'
+      - 'svg path'
+      - ['svg[width]', 'The `width=""` attribute is missing from the `<svg>` tag']
+      - ['svg[height]', 'The `height=""` attribute is missing from the `<svg>` tag']
+      - ['svg#bear', 'The `<svg>` should have the ID of `#bear`']
+      - '#left-eye'
+      - '#right-eye'
+      - '#nose'
+      - ['g#left-ear', 'The `#left-ear` should be a group (`<g>`) with multiple elements inside it']
+      - ['g#right-ear', 'The `#right-ear` should be a group (`<g>`) with multiple elements inside it']
+      - ['g#face', 'The `#face` should be a group with (`<g>`) multiple elements inside it']
+
+css:
+  - path: 'css/main.css'
+    search:
+      - '@keyframes'
+      - 'transform'
+      - 'transition'
+      - 'animation'
+
+screenshots:
+  - path: 'index.html'
+    sizes: [400]
+
+functionality:
+  - path: 'index.html'
+    tests:
+      - |
+        // I’d prefer this to be `html.has` but `viewBox` doesn’t work for some reason
+        const svg = $('svg[viewBox]');
+        pass();
+      - |
+        const leftEar = $('#left-ear');
+        const leftEarCss = bounds(leftEar);
+        const rightEar = $('#right-ear');
+        const rightEarCss = bounds(rightEar);
+
+        hover('#bear', function () {
+          if (bounds(leftEar).top == leftEarCss.top) return fail('The left ear doesn’t move when the bear is hovered');
+          if (bounds(rightEar).top == rightEarCss.top) return fail('The right ear doesn’t move when the bear is hovered');
+          pass();
+        });
+
+      - |
+        const leftEye = $('#left-eye');
+        const leftEyeCss = bounds(leftEye);
+        const rightEye = $('#right-eye');
+        const rightEyeCss = bounds(rightEye);
+
+        setTimeout(function () {
+          if (bounds(leftEye).left == leftEyeCss.left) return fail('The left eye doesn’t move with an animation');
+          if (bounds(rightEye).left == rightEyeCss.left) return fail('The right eye doesn’t move with an animation');
+          pass();
+        }, 500);

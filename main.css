@@ -1,0 +1,52 @@
+body 
+{
+    height: 40vh;
+    width: 40vw;
+    align-items: center;
+    justify-content: center;
+}
+
+svg:hover #left-eye
+{ 
+    /*transform-origin: 84.77px, 106.5px;*/
+    animation: eyes 3s linear infinite alternate;
+}
+svg:hover #right-eye 
+{
+    /*transform-origin: 171.23px, 106.5px;*/
+    animation: eyes 3s linear infinite alternate;
+}
+
+@keyframes eyes {
+0% {
+    transform: translateX(0);
+}
+
+25% {
+    transform: translateX(10px);
+}
+
+75% {
+    transform: translateX(-10px);
+}
+
+100% {
+    transform: translateX(0);
+}
+
+}
+
+svg:hover #left-ear, svg:hover #inner-left-ear, svg:hover #right-ear, svg:hover #inner-right-ear
+{
+    animation: ears 0.4s linear forwards;
+}
+
+@keyframes ears {
+
+0%{
+    transform: translateY(0px);
+    }
+100%{
+    transform: translateY(-10px);
+    }
+}
